@@ -1,8 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
-import { Star, ShoppingCart, Heart } from 'lucide-react';
+import { Star, ShoppingCart, Heart } from '@/lib/icons';
 import { Product } from '@/types';
 import { useCart } from '@/context/CartContext';
 import { trackActivity } from '@/lib/recommendations';
@@ -45,6 +44,7 @@ export default function ProductCard({ product, showBadge = false }: ProductCardP
           <img
             src={product.image}
             alt={product.name}
+            loading="lazy"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
           {showBadge && product.stock < 20 && (

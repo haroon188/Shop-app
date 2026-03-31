@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Sparkles } from 'lucide-react';
+import { Sparkles } from '@/lib/icons';
 import { Recommendation } from '@/types';
 import { getRecommendations, getPersonalizedHomeRecommendations } from '@/lib/recommendations';
 import ProductCard from './ProductCard';

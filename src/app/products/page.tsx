@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { products, categories } from '@/data/products';
 import ProductCard from '@/components/ProductCard';
-import { SlidersHorizontal } from 'lucide-react';
+import { SlidersHorizontal } from '@/lib/icons';
 
 export default function ProductsPage() {
   const searchParams = useSearchParams();

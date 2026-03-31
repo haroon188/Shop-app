@@ -1,15 +1,25 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { ArrowRight, Zap, Shield, Truck, RotateCcw } from 'lucide-react';
 import { products, categories } from '@/data/products';
 import ProductCard from '@/components/ProductCard';
-import RecommendationSection from '@/components/RecommendationSection';
+
+// Dynamic import for RecommendationSection - lazy loaded
+const RecommendationSection = dynamic(
+  () => import('@/components/RecommendationSection'),
+  { 
+    ssr: false,
+    loading: () => <div className="h-96 bg-gray-100 rounded-xl animate-pulse" />
+  }
+);
 
 export default function Home() {
-  const [featuredProducts, setFeaturedProducts] = useState(products.slice(0, 4));
-  const [newArrivals, setNewArrivals] = useState(products.slice(4, 8));
+  // Static data - no need for useState
+  const featuredProducts = products.slice(0, 4);
+  const newArrivals = products.slice(4, 8);
 
   return (
     <div className="space-y-12">
@@ -43,12 +53,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* AI Recommendations */}
-      <RecommendationSection
-        title="Recommended For You"
-        limit={4}
-        showReason={true}
-      />
+      {/* AI Recommendations - Lazy loaded */}
+      <Suspense fallback={<div className="h-96 bg-gray-100 rounded-xl animate-pulse" />}>
+        <RecommendationSection
+          title="Recommended For You"
+          limit={4}
+          showReason={true}
+        />
+      </Suspense>
 
       {/* Categories */}
       <section>

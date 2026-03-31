@@ -1,8 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
-import { Trash2, Minus, Plus, ShoppingBag, ArrowRight, Package, CreditCard, Truck } from 'lucide-react';
+import { Trash2, Minus, Plus, ShoppingBag, ArrowRight, Package, CreditCard, Truck } from '@/lib/icons';
 import { useCart } from '@/context/CartContext';
 
 export default function CartPage() {

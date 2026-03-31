@@ -2,8 +2,7 @@
 
 import { use, useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { Star, ShoppingCart, Truck, Shield, RotateCcw, ChevronRight, Minus, Plus, Check } from 'lucide-react';
+import { Star, ShoppingCart, Truck, Shield, RotateCcw, ChevronRight, Minus, Plus, Check } from '@/lib/icons';
 import { products } from '@/data/products';
 import { useCart } from '@/context/CartContext';
 import { trackActivity, getFrequentlyBoughtTogether } from '@/lib/recommendations';
