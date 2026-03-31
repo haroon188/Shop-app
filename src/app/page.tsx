@@ -1,65 +1,160 @@
-import Image from "next/image";
+'use client';
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { ArrowRight, Zap, Shield, Truck, RotateCcw } from 'lucide-react';
+import { products, categories } from '@/data/products';
+import ProductCard from '@/components/ProductCard';
+import RecommendationSection from '@/components/RecommendationSection';
 
 export default function Home() {
+  const [featuredProducts, setFeaturedProducts] = useState(products.slice(0, 4));
+  const [newArrivals, setNewArrivals] = useState(products.slice(4, 8));
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="space-y-12">
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-indigo-600 to-purple-700 rounded-2xl overflow-hidden text-white">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&auto=format&fit=crop')] bg-cover bg-center opacity-10"></div>
+        <div className="relative px-8 py-16 md:py-24 flex flex-col items-center text-center">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            Smart Shopping,
+            <br />
+            <span className="text-yellow-300">Powered by AI</span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-lg md:text-xl text-indigo-100 max-w-2xl mb-8">
+            Discover products tailored just for you. Our recommendation engine learns your preferences to find your perfect match.
           </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link
+              href="/products"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-indigo-600 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+            >
+              Shop Now
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+            <Link
+              href="/categories"
+              className="inline-flex items-center gap-2 px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white/10 transition-colors"
+            >
+              Browse Categories
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* AI Recommendations */}
+      <RecommendationSection
+        title="Recommended For You"
+        limit={4}
+        showReason={true}
+      />
+
+      {/* Categories */}
+      <section>
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">Shop by Category</h2>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          {categories.map((category) => (
+            <Link
+              key={category.id}
+              href={`/products?category=${category.id}`}
+              className="group p-6 bg-white rounded-xl border border-gray-200 hover:border-indigo-300 hover:shadow-lg transition-all text-center"
+            >
+              <div className="text-3xl mb-2">
+                {category.id === 'all' && '🛍️'}
+                {category.id === 'electronics' && '⚡'}
+                {category.id === 'fashion' && '👕'}
+                {category.id === 'home' && '🏠'}
+                {category.id === 'fitness' && '💪'}
+              </div>
+              <h3 className="font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors">
+                {category.name}
+              </h3>
+              <p className="text-sm text-gray-500">{category.count} items</p>
+            </Link>
+          ))}
         </div>
-      </main>
+      </section>
+
+      {/* Featured Products */}
+      <section>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold text-gray-900">Featured Products</h2>
+          <Link
+            href="/products"
+            className="text-indigo-600 hover:text-indigo-700 font-medium flex items-center gap-1"
+          >
+            View All
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {featuredProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </section>
+
+      {/* New Arrivals */}
+      <section>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold text-gray-900">New Arrivals</h2>
+          <Link
+            href="/products"
+            className="text-indigo-600 hover:text-indigo-700 font-medium flex items-center gap-1"
+          >
+            View All
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {newArrivals.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="bg-white rounded-xl p-8 border border-gray-200">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="flex items-start gap-4">
+            <div className="p-3 bg-indigo-100 rounded-lg">
+              <Zap className="w-6 h-6 text-indigo-600" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900">AI-Powered</h3>
+              <p className="text-sm text-gray-500">Smart recommendations based on your preferences</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-4">
+            <div className="p-3 bg-green-100 rounded-lg">
+              <Shield className="w-6 h-6 text-green-600" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900">Secure Payment</h3>
+              <p className="text-sm text-gray-500">100% secure payment processing</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-4">
+            <div className="p-3 bg-blue-100 rounded-lg">
+              <Truck className="w-6 h-6 text-blue-600" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900">Free Shipping</h3>
+              <p className="text-sm text-gray-500">Free shipping on orders over $50</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-4">
+            <div className="p-3 bg-purple-100 rounded-lg">
+              <RotateCcw className="w-6 h-6 text-purple-600" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900">Easy Returns</h3>
+              <p className="text-sm text-gray-500">30-day hassle-free return policy</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

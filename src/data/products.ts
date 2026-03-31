@@ -1,0 +1,168 @@
+import { Product } from '@/types';
+
+export const products: Product[] = [
+  {
+    id: '1',
+    name: 'Wireless Bluetooth Headphones',
+    description: 'Premium over-ear headphones with active noise cancellation and 30-hour battery life.',
+    price: 249.99,
+    category: 'electronics',
+    tags: ['audio', 'wireless', 'noise-cancelling', 'premium'],
+    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60',
+    rating: 4.8,
+    reviews: 1243,
+    stock: 45,
+    features: ['Active Noise Cancellation', '30h Battery', 'Bluetooth 5.0', 'Premium Sound']
+  },
+  {
+    id: '2',
+    name: 'Smart Fitness Watch',
+    description: 'Track your health and fitness with GPS, heart rate monitoring, and sleep tracking.',
+    price: 199.99,
+    category: 'electronics',
+    tags: ['wearable', 'fitness', 'health', 'smart'],
+    image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60',
+    rating: 4.6,
+    reviews: 892,
+    stock: 78,
+    features: ['GPS Tracking', 'Heart Rate Monitor', 'Water Resistant', '7-Day Battery']
+  },
+  {
+    id: '3',
+    name: 'Minimalist Leather Backpack',
+    description: 'Handcrafted genuine leather backpack with laptop compartment and organized storage.',
+    price: 179.99,
+    category: 'fashion',
+    tags: ['leather', 'backpack', 'minimalist', 'handcrafted'],
+    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&auto=format&fit=crop&q=60',
+    rating: 4.9,
+    reviews: 567,
+    stock: 23,
+    features: ['Genuine Leather', 'Laptop Sleeve', 'Water Resistant', 'Handcrafted']
+  },
+  {
+    id: '4',
+    name: 'Organic Cotton T-Shirt',
+    description: 'Sustainably sourced organic cotton tee with a relaxed fit and breathable fabric.',
+    price: 34.99,
+    category: 'fashion',
+    tags: ['organic', 'sustainable', 'cotton', 'casual'],
+    image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&auto=format&fit=crop&q=60',
+    rating: 4.5,
+    reviews: 2156,
+    stock: 150,
+    features: ['100% Organic Cotton', 'Sustainable', 'Pre-shrunk', 'Breathable']
+  },
+  {
+    id: '5',
+    name: '4K Webcam Pro',
+    description: 'Professional 4K webcam with auto-focus, noise reduction mic, and wide angle lens.',
+    price: 129.99,
+    category: 'electronics',
+    tags: ['webcam', '4k', 'streaming', 'professional'],
+    image: 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500&auto=format&fit=crop&q=60',
+    rating: 4.7,
+    reviews: 445,
+    stock: 34,
+    features: ['4K Resolution', 'Auto-focus', 'Noise Reduction Mic', 'Wide Angle']
+  },
+  {
+    id: '6',
+    name: 'Ceramic Coffee Mug Set',
+    description: 'Set of 4 handcrafted ceramic mugs, microwave and dishwasher safe.',
+    price: 49.99,
+    category: 'home',
+    tags: ['ceramic', 'coffee', ' Set', 'handcrafted'],
+    image: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=500&auto=format&fit=crop&q=60',
+    rating: 4.8,
+    reviews: 334,
+    stock: 67,
+    features: ['Handcrafted', 'Microwave Safe', 'Dishwasher Safe', 'Set of 4']
+  },
+  {
+    id: '7',
+    name: 'Yoga Mat Premium',
+    description: 'Extra thick, non-slip yoga mat with carrying strap and alignment guides.',
+    price: 59.99,
+    category: 'fitness',
+    tags: ['yoga', 'fitness', 'exercise', 'non-slip'],
+    image: 'https://images.unsplash.com/photo-1602189046132-9b36dc3e7850?w=500&auto=format&fit=crop&q=60',
+    rating: 4.7,
+    reviews: 1123,
+    stock: 89,
+    features: ['6mm Thick', 'Non-slip', 'Eco-friendly', 'Carrying Strap']
+  },
+  {
+    id: '8',
+    name: 'Mechanical Keyboard',
+    description: 'RGB backlit mechanical keyboard with hot-swappable switches and customizable keys.',
+    price: 159.99,
+    category: 'electronics',
+    tags: ['keyboard', 'mechanical', 'gaming', 'rgb'],
+    image: 'https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=500&auto=format&fit=crop&q=60',
+    rating: 4.9,
+    reviews: 2234,
+    stock: 56,
+    features: ['Hot-swappable', 'RGB Backlight', 'Mechanical Switches', 'USB-C']
+  },
+  {
+    id: '9',
+    name: 'Succulent Plant Collection',
+    description: 'Set of 6 assorted succulents in decorative pots, perfect for home or office.',
+    price: 39.99,
+    category: 'home',
+    tags: ['plants', 'succulents', 'decor', 'low-maintenance'],
+    image: 'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?w=500&auto=format&fit=crop&q=60',
+    rating: 4.6,
+    reviews: 445,
+    stock: 43,
+    features: ['Set of 6', 'Decorative Pots', 'Low Maintenance', 'Indoor']
+  },
+  {
+    id: '10',
+    name: 'Running Shoes Pro',
+    description: 'Lightweight running shoes with cushioned sole and breathable mesh upper.',
+    price: 119.99,
+    category: 'fashion',
+    tags: ['shoes', 'running', 'athletic', 'breathable'],
+    image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop&q=60',
+    rating: 4.7,
+    reviews: 1889,
+    stock: 75,
+    features: ['Lightweight', 'Cushioned Sole', 'Breathable Mesh', 'Durable']
+  },
+  {
+    id: '11',
+    name: 'Portable Bluetooth Speaker',
+    description: 'Waterproof speaker with 360° sound, 20-hour battery, and built-in microphone.',
+    price: 79.99,
+    category: 'electronics',
+    tags: ['audio', 'speaker', 'portable', 'waterproof'],
+    image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&auto=format&fit=crop&q=60',
+    rating: 4.5,
+    reviews: 1678,
+    stock: 92,
+    features: ['360° Sound', 'Waterproof', '20h Battery', 'Built-in Mic']
+  },
+  {
+    id: '12',
+    name: 'Scented Candle Set',
+    description: 'Set of 3 luxury scented candles with natural soy wax and essential oils.',
+    price: 44.99,
+    category: 'home',
+    tags: ['candles', 'scented', 'soy wax', 'luxury'],
+    image: 'https://images.unsplash.com/photo-1602605169702-23588f35a98b?w=500&auto=format&fit=crop&q=60',
+    rating: 4.8,
+    reviews: 556,
+    stock: 38,
+    features: ['Natural Soy Wax', 'Essential Oils', 'Long Burning', 'Set of 3']
+  }
+];
+
+export const categories = [
+  { id: 'all', name: 'All Products', count: products.length },
+  { id: 'electronics', name: 'Electronics', count: products.filter(p => p.category === 'electronics').length },
+  { id: 'fashion', name: 'Fashion', count: products.filter(p => p.category === 'fashion').length },
+  { id: 'home', name: 'Home & Living', count: products.filter(p => p.category === 'home').length },
+  { id: 'fitness', name: 'Fitness', count: products.filter(p => p.category === 'fitness').length },
+];
