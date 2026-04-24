@@ -25,8 +25,10 @@ interface ShippingDetails {
   zipCode: string;
 }
 
+const paypalClientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
+const hasRealPayPalClientId = Boolean(paypalClientId && paypalClientId !== "test");
 const initialOptions = {
-  clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "test",
+  clientId: paypalClientId || "",
   currency: "USD",
   intent: "capture",
 };
@@ -134,7 +136,7 @@ export default function RealPaypalCheckout() {
     );
   }
 
-  return (
+  return hasRealPayPalClientId ? (
     <PayPalScriptProvider options={initialOptions}>
       <div className="min-h-screen bg-white font-sans text-slate-900">
         {/* Amazon-style Minimal Header */}
@@ -369,5 +371,42 @@ export default function RealPaypalCheckout() {
         </div>
       </div>
     </PayPalScriptProvider>
+  ) : (
+    <div className="min-h-screen bg-white font-sans text-slate-900">
+      {/* Fallback checkout without loading PayPal SDK */}
+      <header className="border-b border-gray-100 bg-white py-4 px-6 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <Link href="/" className="text-2xl font-black tracking-tighter text-slate-900">
+            SHOP
+          </Link>
+          <div className="flex items-center gap-2 text-slate-400 text-sm font-medium">
+            <Lock className="w-4 h-4" />
+            Secure Checkout
+          </div>
+        </div>
+      </header>
+
+      <div className="min-h-[60vh] flex items-center justify-center p-6">
+        <div className="max-w-md w-full bg-slate-50 border border-slate-200 rounded-3xl p-8 text-center">
+          <ShieldCheck className="w-12 h-12 text-blue-500 mx-auto mb-4" />
+          <h1 className="text-2xl font-bold text-slate-900 mb-2">PayPal is not configured</h1>
+          <p className="text-slate-600 text-sm leading-relaxed">
+            Add your Vercel environment variables for PayPal, then redeploy to enable live checkout.
+          </p>
+          <div className="mt-6 text-left text-xs text-slate-500 bg-white border border-slate-200 rounded-2xl p-4">
+            <p className="font-bold mb-2">Required env vars:</p>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>PAYPAL_CLIENT_ID</li>
+              <li>PAYPAL_SECRET</li>
+              <li>PAYPAL_BASE_URL</li>
+              <li>NEXT_PUBLIC_PAYPAL_CLIENT_ID</li>
+            </ul>
+          </div>
+          <Link href="/products" className="inline-flex mt-6 bg-slate-900 text-white px-6 py-3 rounded-full font-medium hover:bg-slate-800 transition">
+            Browse Products
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 }
