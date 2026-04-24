@@ -14,7 +14,7 @@ export default function CartPage() {
           <ShoppingBag className="w-12 h-12 text-gray-400" />
         </div>
         <h1 className="text-2xl font-bold text-gray-900 mb-2">Your Cart is Empty</h1>
-        <p className="text-gray-500 mb-8">Looks like you haven't added anything yet.</p>
+        <p className="text-gray-500 mb-8">Looks like you haven&apos;t added anything yet.</p>
         <Link
           href="/products"
           className="inline-flex items-center gap-2 px-8 py-4 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-colors"
@@ -32,27 +32,28 @@ export default function CartPage() {
   const total = subtotal + shipping + tax;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      {/* Cart Items */}
-      <div className="lg:col-span-2 space-y-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">Shopping Cart ({totalItems} items)</h1>
-          <button
-            onClick={clearCart}
-            className="text-red-500 hover:text-red-600 font-medium text-sm"
-          >
-            Clear Cart
-          </button>
-        </div>
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_360px] gap-8 items-start">
+        {/* Cart Items */}
+        <div className="space-y-6 min-w-0">
+          <div className="flex items-center justify-between gap-4">
+            <h1 className="text-2xl font-bold text-gray-900">Shopping Cart ({totalItems} items)</h1>
+            <button
+              onClick={clearCart}
+              className="text-red-500 hover:text-red-600 font-medium text-sm whitespace-nowrap"
+            >
+              Clear Cart
+            </button>
+          </div>
 
-        <div className="space-y-4">
+          <div className="space-y-4">
           {items.map((item) => (
             <div
               key={item.id}
-              className="bg-white p-6 rounded-xl border border-gray-200 flex gap-6"
+              className="bg-white p-5 sm:p-6 rounded-2xl border border-gray-200 shadow-sm flex gap-4 sm:gap-6 items-start"
             >
               <Link href={`/product/${item.id}`}>
-                <div className="w-24 h-24 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0">
                   <img
                     src={item.image}
                     alt={item.name}
@@ -68,7 +69,7 @@ export default function CartPage() {
                   </h3>
                 </Link>
                 <p className="text-sm text-gray-500 mt-1">{item.category}</p>
-                <div className="flex items-center justify-between mt-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-4">
                   <div className="flex items-center border border-gray-300 rounded-lg">
                     <button
                       onClick={() => updateQuantity(item.id, item.quantity - 1)}
@@ -98,7 +99,7 @@ export default function CartPage() {
 
               <button
                 onClick={() => removeFromCart(item.id)}
-                className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors mt-1"
               >
                 <Trash2 className="w-5 h-5" />
               </button>
@@ -106,17 +107,17 @@ export default function CartPage() {
           ))}
         </div>
 
-        <Link
-          href="/products"
-          className="inline-flex items-center text-indigo-600 hover:text-indigo-700 font-medium"
-        >
-          Continue Shopping
-        </Link>
-      </div>
+          <Link
+            href="/products"
+            className="inline-flex items-center text-indigo-600 hover:text-indigo-700 font-medium"
+          >
+            Continue Shopping
+          </Link>
+        </div>
 
-      {/* Order Summary */}
-      <div className="lg:sticky lg:top-24 h-fit">
-        <div className="bg-white p-6 rounded-xl border border-gray-200 space-y-6">
+        {/* Order Summary */}
+        <div className="lg:sticky lg:top-24 h-fit">
+          <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-6">
           <h2 className="text-lg font-bold text-gray-900">Order Summary</h2>
 
           <div className="space-y-3 text-gray-600">
@@ -146,10 +147,13 @@ export default function CartPage() {
             </div>
           </div>
 
-          <button className="w-full py-4 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2">
+          <Link
+            href="/checkout"
+            className="w-full py-4 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2"
+          >
             <CreditCard className="w-5 h-5" />
             Proceed to Checkout
-          </button>
+          </Link>
 
           {/* Trust Indicators */}
           <div className="grid grid-cols-3 gap-2 pt-4 border-t border-gray-100">
@@ -165,6 +169,7 @@ export default function CartPage() {
               <CreditCard className="w-5 h-5 mx-auto text-gray-400 mb-1" />
               <p className="text-xs text-gray-500">Secure Payment</p>
             </div>
+          </div>
           </div>
         </div>
       </div>

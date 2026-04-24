@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Star, ShoppingCart, Heart } from '@/lib/icons';
+import { Star, ShoppingCart, Heart, Sparkles } from '@/lib/icons';
 import { Product } from '@/types';
 import { useCart } from '@/context/CartContext';
 import { trackActivity } from '@/lib/recommendations';
@@ -9,9 +9,10 @@ import { trackActivity } from '@/lib/recommendations';
 interface ProductCardProps {
   product: Product;
   showBadge?: boolean;
+  reason?: string;
 }
 
-export default function ProductCard({ product, showBadge = false }: ProductCardProps) {
+export default function ProductCard({ product, showBadge = false, reason }: ProductCardProps) {
   const { addToCart } = useCart();
 
   const handleAddToCart = (e: React.MouseEvent) => {
@@ -38,63 +39,82 @@ export default function ProductCard({ product, showBadge = false }: ProductCardP
   };
 
   return (
-    <div className="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300">
-      <Link href={`/product/${product.id}`} onClick={handleViewProduct}>
-        <div className="relative aspect-square overflow-hidden bg-gray-100">
-          <img
-            src={product.image}
-            alt={product.name}
-            loading="lazy"
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-          />
+    <div className="group h-full flex flex-col bg-white rounded-[32px] shadow-sm border border-slate-100 overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 ease-out">
+      <Link href={`/product/${product.id}`} onClick={handleViewProduct} className="block relative aspect-square overflow-hidden bg-slate-50/50">
+        <img
+          src={product.image}
+          alt={product.name}
+          loading="lazy"
+          className="w-full h-full object-contain p-6 group-hover:scale-110 transition-transform duration-700 ease-out"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1560393464-5c69a73c5770?w=800&auto=format&fit=crop&q=60';
+          }}
+        />
+        {/* Overlaid UI Badges */}
+        <div className="absolute top-4 left-4 flex flex-col gap-1.5 pointer-events-none">
           {showBadge && product.stock < 20 && (
-            <span className="absolute top-2 left-2 px-2 py-1 bg-red-500 text-white text-xs font-medium rounded-full">
+            <span className="px-3 py-1 bg-red-500 text-white text-[9px] font-black uppercase tracking-[0.15em] rounded-full shadow-lg">
               Low Stock
             </span>
           )}
           {product.rating >= 4.8 && (
-            <span className="absolute top-2 right-2 px-2 py-1 bg-green-500 text-white text-xs font-medium rounded-full">
+            <span className="px-3 py-1 bg-indigo-600 text-white text-[9px] font-black uppercase tracking-[0.15em] rounded-full shadow-lg">
               Best Seller
             </span>
           )}
-          <button className="absolute bottom-2 right-2 p-2 bg-white rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity hover:bg-gray-100">
-            <Heart className="w-4 h-4 text-gray-600" />
-          </button>
         </div>
+        
+        <button className="absolute bottom-4 right-4 z-10 p-3 bg-white/80 backdrop-blur-md rounded-full shadow-md transition-all hover:bg-white hover:scale-110 active:scale-95 group/heart">
+          <Heart className="w-4 h-4 text-slate-600 group-hover/heart:text-red-500 group-hover/heart:fill-red-500 transition-colors" />
+        </button>
       </Link>
 
-      <div className="p-4">
-        <div className="flex items-center gap-1 mb-1">
-          <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-          <span className="text-sm text-gray-600">
+      <div className="p-6 flex flex-col flex-1">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="flex gap-0.5">
+            {[...Array(5)].map((_, i) => (
+              <Star 
+                key={i} 
+                className={`w-3 h-3 ${i < Math.floor(product.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-slate-200'}`} 
+              />
+            ))}
+          </div>
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
             {product.rating} ({product.reviews.toLocaleString()})
           </span>
         </div>
 
-        <Link href={`/product/${product.id}`} onClick={handleViewProduct}>
-          <h3 className="font-semibold text-gray-900 mb-1 line-clamp-1 group-hover:text-indigo-600 transition-colors">
+        <Link href={`/product/${product.id}`} onClick={handleViewProduct} className="block group-hover:text-indigo-600 transition-colors">
+          <h3 className="font-black text-slate-900 leading-tight mb-2 line-clamp-1 text-base tracking-tight">
             {product.name}
           </h3>
         </Link>
 
-        <p className="text-sm text-gray-500 line-clamp-2 mb-3">
+        <p className="text-sm text-slate-500 font-medium line-clamp-2 leading-relaxed mb-6">
           {product.description}
         </p>
 
-        <div className="flex items-center justify-between">
-          <div>
-            <span className="text-2xl font-bold text-gray-900">
-              ${product.price.toFixed(2)}
-            </span>
-          </div>
+        <div className="mt-auto pt-5 flex items-center justify-between border-t border-slate-50">
+          <span className="text-2xl font-black text-slate-900 tracking-tighter">
+            ${product.price.toFixed(2)}
+          </span>
           <button
             onClick={handleAddToCart}
-            className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors active:scale-95"
+            className="flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-2xl hover:bg-black transition-all active:scale-95 shadow-xl shadow-slate-900/10"
           >
             <ShoppingCart className="w-4 h-4" />
-            <span className="hidden sm:inline">Add</span>
+            <span className="text-[10px] font-black uppercase tracking-widest">Add</span>
           </button>
         </div>
+
+        {reason && (
+          <div className="mt-4 pt-4 border-t border-slate-50 flex items-center gap-2">
+            <Sparkles className="w-3 h-3 text-indigo-500" />
+            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none">
+              {reason}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

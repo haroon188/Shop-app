@@ -53,9 +53,10 @@ export function trackActivity(activity: UserActivity): void {
 
 export function getRecommendations(
   currentProductId?: string,
-  limit: number = 4
+  limit: number = 4,
+  excludeIds: string[] = []
 ): Recommendation[] {
-  const cacheKey = `${currentProductId || 'home'}_${limit}`;
+  const cacheKey = `${currentProductId || 'home'}_${limit}_${excludeIds.join(',')}`;
   const cached = recommendationCache.get(cacheKey);
   if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
     return cached.recs;
@@ -64,9 +65,11 @@ export function getRecommendations(
   const activities = getUserActivities();
   const product = currentProductId ? productById.get(currentProductId) : null;
   
+  const allExcludeIds = new Set([...excludeIds, currentProductId || '']);
+
   if (activities.length === 0 && !product) {
     const recs = trendingProducts
-      .filter(p => p.id !== currentProductId)
+      .filter(p => !allExcludeIds.has(p.id))
       .slice(0, limit)
       .map(p => ({
         product: p,
@@ -105,14 +108,13 @@ export function getRecommendations(
 
   // Score products using pre-computed lookups
   const candidates: Recommendation[] = [];
-  const excludeId = currentProductId || '';
   
   // Get related products quickly
   if (product) {
     // Same category products
     const sameCategory = productsByCategory.get(product.category) || [];
     for (const p of sameCategory) {
-      if (p.id === excludeId) continue;
+      if (allExcludeIds.has(p.id)) continue;
       
       let score = 5;
       const reasons: string[] = [];
@@ -138,7 +140,11 @@ export function getRecommendations(
       
       if (sharedTagCount > 0) {
         score += sharedTagCount * 2;
-        reasons.push(`Matches your interest in ${firstSharedTag}`);
+        if (firstSharedTag === 'audio') reasons.push('Highly rated by audio enthusiasts');
+        else if (firstSharedTag === 'minimalist') reasons.push('Matches your minimalist aesthetic');
+        else if (firstSharedTag === 'premium') reasons.push('Engineered for premium performance');
+        else if (firstSharedTag === 'fitness') reasons.push('Fits your active fitness lifestyle');
+        else reasons.push(`Matches your interest in ${firstSharedTag} gear`);
       }
       
       if (viewedProducts.has(p.id)) score += 0.5;
@@ -147,7 +153,7 @@ export function getRecommendations(
       candidates.push({
         product: p,
         score,
-        reason: reasons[0] || 'Similar item'
+        reason: reasons[0] || 'Top-rated in this category'
       });
     }
   }
@@ -158,23 +164,26 @@ export function getRecommendations(
     
     const catProducts = productsByCategory.get(cat) || [];
     for (const p of catProducts) {
-      if (p.id === excludeId || candidates.some(c => c.product.id === p.id)) continue;
+      if (allExcludeIds.has(p.id) || candidates.some(c => c.product.id === p.id)) continue;
       
       const finalScore = score * 2 + (p.rating - 4) * p.reviews / 1000;
-      if (viewedProducts.has(p.id)) {
-        candidates.push({
-          product: p,
-          score: finalScore,
-          reason: 'Based on your browsing'
-        });
-      }
+      let reason = 'Personalized pick for you';
+      if (cat === 'electronics') reason = 'Based on your interest in smart tech';
+      else if (cat === 'fashion') reason = 'Selected for your unique style';
+      else if (cat === 'home') reason = 'Curated for your modern home';
+
+      candidates.push({
+        product: p,
+        score: finalScore,
+        reason
+      });
     }
   }
   
   // Fill remaining with trending
   if (candidates.length < limit) {
     for (const p of trendingProducts) {
-      if (p.id !== excludeId && !candidates.some(c => c.product.id === p.id)) {
+      if (!allExcludeIds.has(p.id) && !candidates.some(c => c.product.id === p.id)) {
         candidates.push({
           product: p,
           score: 1,
@@ -234,18 +243,25 @@ export function getFrequentlyBoughtTogether(productId: string, limit: number = 3
   const product = productById.get(productId);
   if (!product) return [];
 
-  // Fast lookup using pre-computed category index
+  // Logic: Complementary items. 
+  // 1. Same category items tagged as 'accessory'
+  // 2. High-rated items from related categories
   const sameCategory = productsByCategory.get(product.category) || [];
-  return sameCategory
+  
+  return products
     .filter(p => p.id !== productId)
     .sort((a, b) => {
-      // Count shared tags quickly
-      let aShared = 0, bShared = 0;
-      for (const tag of product.tags) {
-        if (a.tags.includes(tag)) aShared++;
-        if (b.tags.includes(tag)) bShared++;
-      }
-      return bShared - aShared;
+      // Score A
+      let aScore = a.rating;
+      if (a.category === product.category && a.tags.includes('accessory')) aScore += 10;
+      if (a.category !== product.category) aScore += 2; // Diverse category bonus
+      
+      // Score B
+      let bScore = b.rating;
+      if (b.category === product.category && b.tags.includes('accessory')) bScore += 10;
+      if (b.category !== product.category) bScore += 2;
+
+      return bScore - aScore;
     })
     .slice(0, limit);
 }

@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import Assistant from "@/components/Assistant";
 
 export const metadata: Metadata = {
-  title: "ShopAI - AI-Powered E-commerce",
-  description: "Discover personalized shopping with AI recommendations",
+  title: "Shop - E-commerce",
+  description: "Discover personalized shopping recommendations",
 };
 
 export default function RootLayout({
@@ -15,12 +17,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-gray-50">
+      <body className="min-h-screen bg-white">
         <CartProvider>
-          <Navbar />
-          <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            {children}
-          </main>
+          <div className="min-h-screen flex flex-col">
+            <Navbar />
+            <main className="flex-1">
+              {children}
+            </main>
+            <Footer />
+            <Assistant />
+          </div>
         </CartProvider>
       </body>
     </html>

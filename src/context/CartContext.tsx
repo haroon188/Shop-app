@@ -18,30 +18,26 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 const CART_STORAGE_KEY = 'shopping_cart';
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [items, setItems] = useState<CartItem[]>(() => {
+    if (typeof window === 'undefined') return [];
 
-  // Load cart from localStorage on mount
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem(CART_STORAGE_KEY);
-      if (stored) {
-        try {
-          setItems(JSON.parse(stored));
-        } catch (e) {
-          console.error('Failed to parse cart:', e);
-        }
-      }
-      setIsLoaded(true);
+    const stored = localStorage.getItem(CART_STORAGE_KEY);
+    if (!stored) return [];
+
+    try {
+      return JSON.parse(stored) as CartItem[];
+    } catch (e) {
+      console.error('Failed to parse cart:', e);
+      return [];
     }
-  }, []);
+  });
 
   // Save cart to localStorage whenever it changes
   useEffect(() => {
-    if (isLoaded && typeof window !== 'undefined') {
+    if (typeof window !== 'undefined') {
       localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
     }
-  }, [items, isLoaded]);
+  }, [items]);
 
   const addToCart = (product: Product) => {
     setItems(prev => {
@@ -79,11 +75,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
-  // Prevent hydration mismatch
-  if (!isLoaded) {
-    return null;
-  }
 
   return (
     <CartContext.Provider

@@ -6,10 +6,18 @@ export interface Product {
   category: string;
   tags: string[];
   image: string;
+  images?: string[];
   rating: number;
   reviews: number;
   stock: number;
   features: string[];
+  specs?: Record<string, string>;
+  fullDescription?: string;
+  variants?: Array<{
+    color: string; // hex or name
+    label: string;
+    image: string;
+  }>;
 }
 
 export interface CartItem extends Product {
