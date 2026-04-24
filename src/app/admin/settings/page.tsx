@@ -148,7 +148,7 @@ export default function AdminSettings() {
                  <h3 className="text-lg font-black text-slate-900 tracking-tight">Payment Gateways</h3>
               </div>
               <div className="px-3 py-1 bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest rounded-lg">
-                 PayPal Active
+                 Demo Checkout Active
               </div>
            </div>
            
@@ -158,9 +158,9 @@ export default function AdminSettings() {
                     <ShieldCheck className="w-5 h-5 text-blue-500" />
                  </div>
                  <div>
-                    <h4 className="text-sm font-black text-slate-900 leading-none">PayPal Environment</h4>
+                    <h4 className="text-sm font-black text-slate-900 leading-none">Checkout Mode</h4>
                     <p className="text-xs text-slate-400 font-medium mt-1.5 leading-relaxed">
-                       Currently processing in Sandbox mode. Switch to Production for real transactions.
+                       Currently set to sandbox or production labels for demo presentation.
                     </p>
                  </div>
               </div>
@@ -170,14 +170,14 @@ export default function AdminSettings() {
                    onClick={() => setConfig({...config, paypalMode: 'sandbox'})}
                    className={`py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${config.paypalMode === 'sandbox' ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'bg-white text-slate-400'}`}
                  >
-                   Sandbox
+                   Demo
                  </button>
                  <button 
                    type="button"
                    onClick={() => setConfig({...config, paypalMode: 'live'})}
                    className={`py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${config.paypalMode === 'live' ? 'bg-slate-900 text-white shadow-lg shadow-slate-900/20' : 'bg-white text-slate-400'}`}
                  >
-                   Production
+                   Live Demo
                  </button>
               </div>
            </div>

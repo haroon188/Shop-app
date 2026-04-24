@@ -1,6 +1,6 @@
 # Shop
 
-A Next.js e-commerce app with product browsing, recommendations, cart, checkout, admin pages, and PayPal flow.
+A Next.js e-commerce app with product browsing, recommendations, cart, demo checkout, and admin pages.
 
 ## Run locally
 

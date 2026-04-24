@@ -10,22 +10,14 @@ export async function POST(req: NextRequest) {
       cartItems?: CheckoutCartItem[];
       total?: number;
     };
-    const { paymentMethod, shippingAddress, cartItems, total } = body;
+    const { shippingAddress, cartItems, total } = body;
 
     // --- Validation ---
-    if (!paymentMethod || !shippingAddress || !cartItems) {
+    if (!shippingAddress || !cartItems) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    if (paymentMethod !== "paypal") {
-      return NextResponse.json({ error: "Only PayPal is supported for this demo" }, { status: 400 });
-    }
-
-    // --- Logic ---
-    // In a real environment, you would use the PayPal Checkout SDK here:
-    // 1. Initialize PayPal client with secrets from process.env (not frontend)
-    // 2. Create an order request with total and cart items
-    // 3. Obtain the order ID from PayPal
+    // Demo-only checkout flow: create a local order record and return a fake confirmation.
 
     const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const tax = subtotal * 0.08;
@@ -34,8 +26,8 @@ export async function POST(req: NextRequest) {
     // Simulate secure order creation
     const order = createOrder({
       userId: "guest",
-      email: shippingAddress.email || "guest@shopai.com",
-      paymentMethod: "paypal",
+      email: shippingAddress.email || "guest@shop.com",
+      paymentMethod: "demo",
       shippingAddress,
       cartItems,
       subtotal,
@@ -49,7 +41,7 @@ export async function POST(req: NextRequest) {
       order: {
         id: order.id,
         status: "created",
-        paypal_link: "https://www.paypal.com/checkoutnow?token=DEMO_TOKEN" 
+        demo_link: "/checkout/success?orderId=DEMO_TOKEN" 
       } 
     }, { status: 201 });
 
