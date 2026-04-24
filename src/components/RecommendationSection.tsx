@@ -63,11 +63,11 @@ export default function RecommendationSection({
         <div className="space-y-2">
           <div className="flex items-center gap-2 text-indigo-600">
             <Sparkles className="w-5 h-5" />
-            <span className="text-[10px] font-black uppercase tracking-[0.2em]">Neural Engine Active</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.2em]">Recommendations Active</span>
           </div>
           <h2 className="text-3xl font-black text-slate-900 tracking-tight">{title}</h2>
           <p className="text-slate-500 font-medium text-sm max-w-xl">
-            Our multi-agent system analyzed your browsing patterns to curate this selection specifically for your style profile.
+            We grouped these picks based on your browsing and shopping activity.
           </p>
         </div>
         <button className="flex items-center gap-2 text-indigo-600 font-black text-[10px] uppercase tracking-widest hover:gap-3 transition-all duration-300">

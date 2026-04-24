@@ -43,7 +43,7 @@ export default function ProductPage({ params }: ProductPageProps) {
     if (!product) return null;
     if (product.stock <= 5) return { text: `Critically Low Stock: Only ${product.stock} units remaining.`, color: 'text-red-600 bg-red-50 border-red-100' };
     if (product.stock <= 25) return { text: "High Demand: 42 people are viewing this right now.", color: "text-orange-600 bg-orange-50 border-orange-100" };
-    return { text: "Neural Insight: This product has a 98% satisfaction rate in your region.", color: "text-blue-600 bg-blue-50 border-blue-100" };
+    return { text: "Strong demand: this product has a 98% satisfaction rate in your region.", color: "text-blue-600 bg-blue-50 border-blue-100" };
   }, [product]);
 
   const reviewHighlights = [
@@ -335,7 +335,7 @@ export default function ProductPage({ params }: ProductPageProps) {
               <div className="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 shadow-sm border border-indigo-100">
                 <RotateCcw className="w-5 h-5" />
               </div>
-              <span className="text-[9px] font-black uppercase tracking-tighter text-slate-400">30-Day Neural Refund</span>
+              <span className="text-[9px] font-black uppercase tracking-tighter text-slate-400">30-Day Return Window</span>
             </div>
           </div>
         </div>
@@ -441,7 +441,7 @@ export default function ProductPage({ params }: ProductPageProps) {
               </div>
               <h3 className="text-2xl font-black tracking-tight leading-none">Why shoppers love this</h3>
               <p className="text-indigo-100 text-sm font-medium leading-relaxed opacity-90">
-                Our neural engine analyzed {product.reviews.toLocaleString()} reviews to synthesize the core experience of this product.
+                We reviewed {product.reviews.toLocaleString()} customer reviews to highlight the core experience of this product.
               </p>
             </div>
 

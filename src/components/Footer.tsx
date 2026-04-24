@@ -18,7 +18,7 @@ export default function Footer() {
               <span className="text-2xl font-black text-white tracking-tighter uppercase">Shop</span>
             </Link>
             <p className="text-sm leading-relaxed max-w-xs text-slate-500">
-              Revolutionizing e-commerce with neural-driven personalization. Discover products curated specifically for your lifestyle.
+              A clean, modern storefront built to help you find products fast and shop with confidence.
             </p>
             <div className="flex items-center gap-4 text-slate-500">
               <Link href="/twitter" className="hover:text-white transition-colors" title="Twitter"><Globe className="w-5 h-5" /></Link>
@@ -60,7 +60,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <MapPin className="w-4 h-4 text-indigo-500" />
-                <span className="font-bold leading-tight">123 Neural Way, Silicon Valley, CA</span>
+                <span className="font-bold leading-tight">123 Market Street, San Francisco, CA</span>
               </li>
             </ul>
           </div>
@@ -68,7 +68,7 @@ export default function Footer() {
 
         <div className="pt-6 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-[10px] font-black uppercase tracking-widest text-slate-600">
-            © {currentYear} Shop Interactive. All rights reserved. Built with Neural Intelligence.
+            © {currentYear} Shop Interactive. All rights reserved.
           </p>
           <div className="flex items-center gap-6 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300">
             <div className="flex items-center gap-2">

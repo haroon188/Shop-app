@@ -33,7 +33,7 @@ export default function Assistant() {
           </div>
         )}
         <div className="absolute right-20 bg-slate-900 text-white px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl">
-          {contextProduct ? `Ask about ${contextProduct.name}` : 'Ask Neural Assistant'}
+          {contextProduct ? `Ask about ${contextProduct.name}` : 'Ask Shop Assistant'}
         </div>
       </button>
 
@@ -47,7 +47,7 @@ export default function Assistant() {
                 <Sparkles className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-black tracking-tight leading-none">Neural Bot</h3>
+                <h3 className="text-lg font-black tracking-tight leading-none">Shop Assistant</h3>
                 <p className="text-[10px] text-emerald-400 font-black uppercase tracking-widest mt-1.5 flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
                   Assistant Online
@@ -81,7 +81,7 @@ export default function Assistant() {
                 <p className="text-xs font-bold text-slate-900 leading-relaxed">
                   {contextProduct 
                     ? `Hi there! Looking for more details on the ${contextProduct.name}?` 
-                    : "Welcome to Shop! I’m your Neural Personalization assistant. Ask me anything!"}
+                    : "Welcome to Shop! I’m your shopping assistant. Ask me anything!"}
                 </p>
               </div>
             </div>

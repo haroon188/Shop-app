@@ -62,7 +62,7 @@ export default function Home() {
               Smart Shopping, <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Reimagined.</span>
             </h1>
             <p className="text-xl text-slate-300 font-medium leading-relaxed max-w-lg">
-              Experience a storefront that learns your style. Powered by Neural Recommendations for a perfectly curated catalog.
+              Experience a storefront designed to help you discover products quickly with a clean, focused catalog.
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-4">
               <Link
@@ -95,7 +95,7 @@ export default function Home() {
                 Shop by Category
                 <Target className="w-6 h-6 text-indigo-500" />
               </h2>
-              <p className="text-slate-500 font-medium">Prioritized by your recent neural activity</p>
+              <p className="text-slate-500 font-medium">Sorted using your recent browsing activity</p>
             </div>
             <Link href="/categories" className="hidden sm:flex items-center gap-2 text-indigo-600 font-black text-xs uppercase tracking-widest hover:text-indigo-700 transition-colors">
               All Categories <ArrowUpRight className="w-4 h-4" />
@@ -133,7 +133,7 @@ export default function Home() {
           <div className="flex justify-between items-end">
             <div className="space-y-2">
               <h2 className="text-3xl font-black text-slate-900 tracking-tight">New Arrivals</h2>
-              <p className="text-slate-500 font-medium">Fresh additions to our curated neural catalog</p>
+              <p className="text-slate-500 font-medium">Fresh additions to our catalog</p>
             </div>
             <Link href="/products" className="hidden sm:flex items-center gap-2 text-indigo-600 font-black text-xs uppercase tracking-widest">
               View All <ArrowRight className="w-4 h-4" />
@@ -153,7 +153,7 @@ export default function Home() {
               { icon: Sparkles, title: "Personalized", desc: "Smarter personal choices" },
               { icon: ShieldCheck, title: "Secure Payment", desc: "PCI-DSS compliant" },
               { icon: Truck, title: "Free Shipping", desc: "On all orders over $100" },
-              { icon: RotateCcw, title: "Easy Returns", desc: "30-day neural guarantee" }
+              { icon: RotateCcw, title: "Easy Returns", desc: "30-day return guarantee" }
             ].map((badge, i) => (
               <div key={i} className="flex flex-col items-center text-center space-y-4 group">
                 <div className="w-16 h-16 bg-white rounded-[24px] flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-indigo-600 transition-all duration-500">
